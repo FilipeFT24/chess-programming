@@ -12,7 +12,7 @@ public:
 };
 class Position{
 public:
-	Position(Bitboard);
+	Position();
 
 	uint64_t _BOcc;
 	uint64_t _BA;
@@ -36,8 +36,8 @@ public:
 	bool     _WQ_C;
 	bool     _Turn;
 private:
-	uint64_t get_BA(Bitboard) const;
-	uint64_t get_WA(Bitboard) const;
+	uint64_t _get_BA() const;
+	uint64_t _get_WA() const;
 };
 
 inline void lsb(unsigned long& a, uint64_t& b){

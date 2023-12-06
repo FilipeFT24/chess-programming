@@ -1,6 +1,6 @@
 #include "position.h"
 
-Position::Position(Bitboard B){
+Position::Position(){
 	_BOcc = 0x000000000000FFFFULL;
 	_BP   = 0x000000000000FF00ULL;
 	_BN   = 0x0000000000000042ULL;
@@ -20,28 +20,28 @@ Position::Position(Bitboard B){
 	_BQ_C = 1;
 	_WQ_C = 1;
 	_Turn = 1;
-	_BA   = get_BA(B);
-	_WA   = get_WA(B);
+	_BA   = _get_BA();
+	_WA   = _get_WA();
 }
-uint64_t Position::get_BA(Bitboard  ) const{
+uint64_t Position::_get_BA() const{
 	unsigned long a = 0UL;
 
 	uint64_t BA = 0ULL;
-
-	for(uint64_t b = _BP; __popcnt64(b) > 0; BA |= B._PA_mask[1][a]){lsb(a, b);}
-	for(uint64_t b = _BN; __popcnt64(b) > 0; BA |= B._NA_mask   [a]){lsb(a, b);}
-	for(uint64_t b = _BK; __popcnt64(b) > 0; BA |= B._KA_mask   [a]){lsb(a, b);}
+	
+	for(uint64_t b = _BP; __popcnt64(b) > 0; BA |= Bitboard::_get()._PA_mask[1][a]){lsb(a, b);}
+	for(uint64_t b = _BN; __popcnt64(b) > 0; BA |= Bitboard::_get()._NA_mask   [a]){lsb(a, b);}
+	for(uint64_t b = _BK; __popcnt64(b) > 0; BA |= Bitboard::_get()._KA_mask   [a]){lsb(a, b);}
 
 	return BA;
 }
-uint64_t Position::get_WA(Bitboard B) const{
+uint64_t Position::_get_WA() const{
 	unsigned long a = 0UL;
 
 	uint64_t WA = 0ULL;
 
-	for(uint64_t b = _WP; __popcnt64(b) > 0; WA |= B._PA_mask[0][a]){lsb(a, b);}
-	for(uint64_t b = _WN; __popcnt64(b) > 0; WA |= B._NA_mask   [a]){lsb(a, b);}
-	for(uint64_t b = _WK; __popcnt64(b) > 0; WA |= B._KA_mask   [a]){lsb(a, b);}
+	for(uint64_t b = _WP; __popcnt64(b) > 0; WA |= Bitboard::_get()._PA_mask[0][a]){lsb(a, b);}
+	for(uint64_t b = _WN; __popcnt64(b) > 0; WA |= Bitboard::_get()._NA_mask   [a]){lsb(a, b);}
+	for(uint64_t b = _WK; __popcnt64(b) > 0; WA |= Bitboard::_get()._KA_mask   [a]){lsb(a, b);}
 
 	return WA;
 }
